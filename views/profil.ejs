@@ -1,93 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="/css/tailwind.css">
+    <link rel="stylesheet" href="/css/tailwind.css" />
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer></script>
-</head>
+    <script
+      src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js"
+      defer
+    ></script>
+  </head>
 
-<body class="bg-gray-100">
-    <img src="/profilPicture/<%= user.img %>" alt="" class="image-cover h-full w-full object-center object-cover">
+  <body class="bg-gray-100">
+    <img
+      src="https://randomuser.me/api/portraits/women/75.jpg"
+      class="image-cover h-full w-full object-center object-cover"
+    />
     <div class="bg-white shadow-md">
-        <div class="container mx-auto p-2">
-            <div class="flex items-center">
-                <div class="border-4 border-blue-400 rounded-full  h-32 w-32 flex">
-                    <img class="object-center rounded-full w-full" alt="A" src="/profilPicture/<%= user.img %>">
+      <div class="container mx-auto p-2">
+        <div class="flex items-center flex-wrap justify-center">
+          <div class="border-4 border-blue-400 rounded-full h-32 w-32 flex">
+            <img
+              class="object-center rounded-full w-full flex-1"
+              alt="A"
+              src="https://randomuser.me/api/portraits/women/75.jpg"
+            />
 
-                    <form action="" method="post" enctype="multipart/form-data">
-                        <input type="file" name="profilePicture" id="profilePicture" class="hidden" accept="image/png, image/jpeg">
-                        <label for="profilePicture" id="addPhotoLabel" class="cursor-pointer"><span class="iconify" data-icon="bi:camera-fill" data-inline="false"></span></label>
-                        <input type="submit" >
-                    </form>
-                </div>
-                <div class=" ml-4">
-                    <h1 class="text-2xl font-bold tracking-black text-gray-800"><%= user.Firstname %>  <%= user.Lastname %></h1>
-                    <p class="text-gray-700 text-sm"><%= user.email %></p>
-                </div>
-                <div class="ml-auto">
-                    <button class="mt-3 text-lg font-semibold
-                        tracking-wider 
-                        bg-blue-400  text-white rounded-lg
-                        px-6 py-3 block shadow-xl hover:text-white 
-                        hover:bg-blue-800">
-                        Ajouter
-                    </button>
-                </div>
-
-            </div>
-            <div class="profile-info flex justify-between items-baseline mt-4">
-
-            </div>
+            <form method="post">
+              <input
+                type="file"
+                name="profilePicture"
+                id="profilePicture"
+                class="hidden"
+                accept="image/*"
+              />
+              <label
+                for="profilePicture"
+                id="addPhotoLabel"
+                class="cursor-pointer"
+                ><span
+                  class="iconify"
+                  data-icon="bi:camera-fill"
+                  data-inline="false"
+                ></span
+              ></label>
+            </form>
+          </div>
+          <div class="ml-4">
+            <h1 class="text-2xl font-bold tracking-black text-gray-800">
+              randomuser
+            </h1>
+            <p class="text-gray-700 text-sm">email@gmail.com</p>
+          </div>
+          <div class="ml-auto">
+            <button
+              class="mt-3 text-lg font-semibold tracking-wider bg-blue-400 text-white rounded-lg px-6 py-3 block shadow-xl hover:text-white hover:bg-blue-800"
+            >
+              Ajouter
+            </button>
+          </div>
         </div>
+        <div
+          class="profile-info flex justify-between items-baseline mt-4"
+        ></div>
+      </div>
     </div>
 
-    <main class="px-2 posts-container  container mx-auto mt-4 ">
-        <% if (locals.posts) { %>
-            <% for( let index = 0; index < posts.length; index++ ) { %>
-               <section class="rounded-lg overflow-hidden my-4 bg-white shadow-xl ">
-                   <div class=" border h-64 ">
-                       <img src=" https://picsum.photos/200/300 " alt=" " class=" object-cover object-center w-full h-full ">
-                   </div>
-       
-                   <article class="  p-2 ">
-                       <a href=" /post/<%= posts[index].ID %>  " class=" block text-2xl  font-bold truncate " title=" ajoute le titre du
-                           post ici ou cas ou le titre est trop long pour une ligne "><%= posts[index].title %> </a>
-                       <div class=" flex items-center mt-2">
-                           <div class=" logo h-12 w-12 rounded-full border border-blue-400 overflow-hidden ">
-                               <img class=" object-center " src=" /image/profile.jpg " alt=" profile ">
-                           </div>
-                           <div class=" info ml-2 flex flex-col items-start justify-center ">
-                               <p class=" text-xl font-semibold leading-5 "><%= posts[index].firstname %>  <%= posts[index].lastname %> </p>
-                               <span class=" text-xs text-gray-600 ">Le <%= posts[index].date %>  à <%= posts[index].time %> </span>
-                           </div>
-                           <div class=" ml-auto ">
-                               <a href=" /post/<%= posts[index].ID %> " class=" block text-white bg-blue-400 py-1 px-4 font-black
-                           tracking-wider rounded-lg text-xl ">
-                                   Lire
-                               </a>
-                           </div>
-                       </div>
-                   </article>
-       
-                   <hr>
-                   <div>
-                       <a href=" /post/<%= posts[index].ID %>" class=" block py-1 px-1 flex justify-center items-center ">
-       
-                           <span class=" block iconify text-2xl text-gray-600 hover:text-gray-700 "" data-inline=" false"
-                               data-icon="icons8:comments"></span>
-       
-                           <span class="block ml-2 text-gray-700 text-xl">Commenter</span>
-       
-                       </a>
-                   </div>
-               </section>
-            <% } %>
-           <% } %>
+    <main class="px-2 posts-container container mx-auto mt-4">
+      <% if (locals.posts) { %> <% for( let index = 0; index < posts.length;
+      index++ ) { %>
+      <section class="rounded-lg overflow-hidden my-4 bg-white shadow-xl">
+        <div class="border h-64">
+          <img
+            src=" https://picsum.photos/200/300 "
+            alt=" "
+            class="object-cover object-center w-full h-full"
+          />
+        </div>
 
+        <article class="p-2">
+          <a
+            href=" /post/<%= posts[index].ID %>  "
+            class="block text-2xl font-bold truncate"
+            title=" ajoute le titre du
+                           post ici ou cas ou le titre est trop long pour une ligne "
+            ><%= posts[index].title %>
+          </a>
+          <div class="flex items-center mt-2">
+            <div
+              class="logo h-12 w-12 rounded-full border border-blue-400 overflow-hidden"
+            >
+              <img
+                class="object-center"
+                src=" /image/profile.jpg "
+                alt=" profile "
+              />
+            </div>
+            <div class="info ml-2 flex flex-col items-start justify-center">
+              <p class="text-xl font-semibold leading-5">
+                <%= posts[index].firstname %> <%= posts[index].lastname %>
+              </p>
+              <span class="text-xs text-gray-600"
+                >Le <%= posts[index].date %> à <%= posts[index].time %>
+              </span>
+            </div>
+            <div class="ml-auto">
+              <a
+                href=" /post/<%= posts[index].ID %> "
+                class="block text-white bg-blue-400 py-1 px-4 font-black tracking-wider rounded-lg text-xl"
+              >
+                Lire
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <hr />
+        <div>
+          <a
+            href=" #ouvrir_les_commentaire "
+            class="block py-1 px-1 flex justify-center items-center"
+          >
+            <span
+              class="block iconify text-2xl text-gray-600 hover:text-gray-700"
+              data-inline=" false"
+              data-icon="icons8:comments"
+            ></span>
+
+            <span class="block ml-2 text-gray-700 text-xl">Commenter</span>
+          </a>
+        </div>
+      </section>
+      <% } %> <% } %>
     </main>
-
-</body>
+  </body>
+</html>
