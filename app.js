@@ -3,8 +3,6 @@ let mysql=require('mysql');
 var dbconfig = require('./database');
 var connection = mysql.createConnection(dbconfig.connection);
 connection.query('USE ' + dbconfig.database);
-//const redis=require("redis");
-//const client = redis.createClient();
 const moment=require("moment")
 let now=moment();
 const path=require("path")
@@ -50,19 +48,10 @@ socket.on("joined",async ({username,lastname,email,room,img})=>{
   trouver(email,function(verif,res){
     if(verif==true) socket.disconnect();
     if(verif==false){
-      console.log(res)
-     /* let number=usernameFind(username,lastname,room);
-      if(number!=0){  
-        lastname=lastname.concat(number) 
-      }*/
       joinChat(socket.id,username,lastname,email,room,img,function(element){
         console.log(element)
         socket.join(element.room);
-       // dede()
         oldMsg(socket,element.room)
-       /* usersRoom(element.room,function(t){
-          io.to(element.room).emit("roomUsers",{room:element.room,users:t})
-        });*/
       })
     }
   })
@@ -79,11 +68,9 @@ socket.on("disconnect",()=>{
     io.to(resu.room).emit('roomUsers',{room:resu.room,users:t})
     })}
   });
-//dede()
         })
 })
 })
 //PORTS
-//const REDIS_PORT=6379||process.env.PORT;
 const PORT=8080||process.env.PORT;
 server.listen(PORT,()=>{console.log("server started running on port:"+PORT)});

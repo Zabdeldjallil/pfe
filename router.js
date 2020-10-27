@@ -5,8 +5,6 @@ let mysql=require('mysql');
 var dbconfig = require('./database');
 var connection = mysql.createConnection(dbconfig.connection);
 connection.query('USE ' + dbconfig.database);
-//const redis=require("redis");
-//const client = redis.createClient();
 const moment=require("moment")
 let now=moment();
 const bcrypt = require('bcrypt')
@@ -130,10 +128,6 @@ connection.query("SELECT * FROM users WHERE id=?",[req.params.id],function(err,r
   }
   res.redirect("/dash")
 })
-/*connection.query("DELETE FROM users WHERE id=?",[req.params.id],function(err,result){
-  if(err) throw err;
-  res.redirect("/dash")
-})*/
   }else{
     res.redirect("/404")
   }
@@ -199,7 +193,7 @@ router.get('/logout',isLoggedIn, (req, res) => {
   })
 //posts    
 router.post("/registered",function(req,res){
-    //console.log(req.body)
+    
     if(!validator.isEmail(req.body.email)){res.render("signup",{message:"Email erroned"})}
      if(req.body.password.length<8||req.body.password!=req.body.passwordconfirm){res.render("signup",{message:"Your password must contain atleast 8 characters and be confirmed correctly"})}
      if(validator.isEmail(req.body.email)&&req.body.password.length>=8&&req.body.password==req.body.passwordconfirm){
@@ -210,7 +204,7 @@ router.post("/registered",function(req,res){
            let toto=await random.int(1,1000000);
             let HPSW=bcrypt.hashSync(req.body.password, 10, null)
             let activated=false;
-            //console.log(req.body)
+          
          connection.query("INSERT INTO users (Firstname,Lastname,email,speciality,password,activated,akey,role,sex) values (?,?,?,?,?,?,?,?,?)",[req.body.firstname,req.body.lastname,req.body.email,req.body.speciality,HPSW,activated,toto,'user',req.body.sex],function(err,rows) { 
           if(err) throw err;
        main(req.body.email,toto);
@@ -259,7 +253,7 @@ router.post("/post/:id",isLoggedIn,function(req,res){
         res.redirect(`/post/${req.params.id}`)
     })
 })
-//here need fix
+
 router.post("/update-user",isLoggedIn,function(req,res){
    connection.query("SELECT * FROM users WHERE email=?",[req.user.email],function(err,result){
     if(err) throw err;
