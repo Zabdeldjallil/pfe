@@ -1,100 +1,90 @@
-
 <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Document</title>
-      <link rel="stylesheet" href="/css/tailwind.css" />
-      <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
-    </head>
-  
-    <body class="bg-gray-100 flex flex-col h-full">
-      <header class="pt-2 bg-white primary-shadow">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/tailwind.css" />
+    <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
+</head>
+
+<body class="bg-gray-100 flex flex-col h-full">
+    <header class="pt-2 bg-white primary-shadow">
         <div class="container mx-auto px-2">
-          <div class="flex justify-between items-center">
-            <div class="logo h-12 w-12 rounded-full border border-blue-400 p-2">
-              <img src="/image/logo.png" alt="pfe logo" />
+            <div class="flex justify-between items-center">
+                <div class="logo h-12 w-12 rounded-full border border-blue-400 p-2">
+                    <img src="/image/logo.png" alt="pfe logo" />
+                </div>
+                <div class="flex-1 mx-8">
+                    <input class="border-gray-500 border px-1 py-1 bg-gray-300 w-full" type="search" name="filter" id="filter" placeholder="Recherche ..." />
+                </div>
+                <div class="logo h-12 w-12 rounded-full border border-blue-400 overflow-hidden">
+                    <% if (locals.user.img) { %>
+                        <img src="/profilPicture/<%= user.img %>" alt="pfe logo">
+                        <% } else{%>
+                            <img src="/back.jpg" alt="pfe logo">
+                            <% } %>
+
+                </div>
             </div>
-            <div class="flex-1 mx-8">
-              <input
-                class="border-gray-500 border px-1 py-1 bg-gray-300 w-full"
-                type="search"
-                name="filter"
-                id="filter"
-                placeholder="Recherche ..."
-              />
-            </div>
-            <div
-              class="logo h-12 w-12 rounded-full border border-blue-400 overflow-hidden"
-            >
-            <% if (locals.user.img) { %>
-              <img src="/profilPicture/<%= user.img %>" alt="pfe logo">
-          <% } else{%>
-              <img src="/back.jpg" alt="pfe logo">
-              <% } %>
-              
-            </div>
-          </div>
         </div>
-  
+
         <hr class="mt-2" />
-  
+
         <nav class="container mx-auto px-2 flex justify-between items-center
         ">
-              <a href="/index" class="block py-1 px-1">
+            <a href="/index" class="block py-1 px-1">
                   <span class="iconify text-3xl text-gray-600 text-blue-400
                   hover:text-gray-700 "" data-inline=" false" data-icon="ant-design:home-outlined"></span>
               </a>
-              <a href="/messages" class="block py-1 px-1">
+            <a href="/messages" class="block py-1 px-1">
                   <span class="iconify text-3xl text-gray-600 hover:text-gray-700 "" data-inline=" false"
                       data-icon="ri:messenger-line"></span>
               </a>
-            
-              <a href="/add-post" class="block py-1 px-1">
+
+            <a href="/add-post" class="block py-1 px-1">
                   <span class="iconify text-3xl text-gray-600 hover:text-gray-700 "" data-inline=" false"
                       data-icon="ic:baseline-post-add"></span>
               </a>
-  
-              <a href="/settings" class="block py-1 px-1">
+
+            <a href="/settings" class="block py-1 px-1">
                   <span class="iconify text-3xl text-gray-600 hover:text-gray-700 "" data-inline=" false"
                       data-icon="gridicons:menu"></span>
               </a>
-          </nav>
-      </header>
-      <main class="flex flex-col flex-1">
+        </nav>
+    </header>
+    <main class="flex flex-col flex-1">
         <div class="mt-2">
-          <div class="bg-white py-2 border-b-2 border-blue-400">
-           
-          </div>
+            <div class="bg-white py-2 border-b-2 border-blue-400">
+
+            </div>
         </div>
-        <div
-          class="flex-1 messages container mx-auto px-2 pb-2 overflow-y-visible"
-        >
+        <div class="flex-1 messages container mx-auto px-2 pb-2 overflow-y-visible">
         </div>
         <div class="bg-white border-t-2 border-blue-400">
-          <div class="mt-auto container mx-auto px-2 flex items-stretch">
-            <input type="text" placeholder="..." class="block flex-1 px-2" id="message-sent" required/>
-  
-            <button id="envoie" class="ml-auto block py-1 px-1" type="submit">
+            <div class="mt-auto container mx-auto px-2 flex items-stretch">
+                <input type="text" placeholder="..." class="block flex-1 px-2" id="message-sent" required/>
+
+                <button id="envoie" class="ml-auto block py-1 px-1" type="submit">
               <span
                 class="iconify text-3xl text-blue-600 hover:text-gray-700"
                 data-inline=" false"
                 data-icon="carbon:send-filled"
               ></span>
             </button>
-          </div>
+            </div>
         </div>
-      </main>
-      <script src="/socket.io/socket.io.js"></script>
-<script>
-  const socket=io();
-const outPut=function(msg,emails,imgs){
-  const div=document.createElement("div");
- if(emails!=email){
-  div.innerHTML=`
+    </main>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        const outPut = function(msg, emails, imgs) {
+            const div = document.createElement("div");
+            if (emails != email) {
+                div.innerHTML = `
     <div class="flex w-full mt-4">
       <div
-              class="h-12 w-12 rounded-full border border-blue-400 overflow-hidden"
+              class="h-12 w-12 rounded-full border border-blue-400 overflow-hidden logo"
             >
               <img
                 src=${(imgs=='/profilPicture/')?"/back.jpg":imgs}
@@ -105,11 +95,10 @@ const outPut=function(msg,emails,imgs){
               ${msg}
             </div>
           </div>`
-      document.querySelector(".messages").appendChild(div);
- }
-  else{
-    const div=document.createElement("div");
-      div.innerHTML=`
+                document.querySelector(".messages").appendChild(div);
+            } else {
+                const div = document.createElement("div");
+                div.innerHTML = `
     <div class='flex w-full mt-4 justify-end'>
       <div
               class="message-content bg-blue-400 text-white mx-2 w-5/6 rounded-lg p-2"
@@ -117,7 +106,7 @@ const outPut=function(msg,emails,imgs){
               ${msg}
             </div>
             <div
-              class="h-12 w-12 rounded-full border border-blue-400 overflow-hidden"
+              class="h-12 w-12 rounded-full border border-blue-400 overflow-hidden logo"
             >
               <img
                 src=${(imgs=='/profilPicture/')?"/back.jpg":imgs}
@@ -125,33 +114,39 @@ const outPut=function(msg,emails,imgs){
               />
             </div>
           </div>`
-            document.querySelector(".messages").appendChild(div);
-  }
-}
-socket.on('message',(message,email,imgs)=>{
-    outPut(message,email,imgs);
-    //chatMessage.scrollTop=chatMessage.scrollHeight;
-})
-      let username= `<%= user.Firstname %>`
-      let email=`<%= user.email %>`
-      let lastname=`<%= user.Lastname %>`
-      let role=`<%= user.role %>`
-      let img="/profilPicture/<%= user.img %>";
-      console.log(img)
-  if(role=="admin"){
-      lastname= lastname.concat("⭐")
-      console.log(lastname)
-                  }
-      //let room=location.pathname.split("")[14]
-      let room=location.pathname.slice(14).replace(20,"").replace("%","").replace("-","")
-      console.log(room)
-socket.emit("joined",{username,lastname,email,room,img});
-socket.on("afficherMsg",(result)=>{
-  result.forEach(element=>{
-    if(element.email==email){
-    //console.log("kifkif")
-      const div=document.createElement("div");
-      div.innerHTML=`
+                document.querySelector(".messages").appendChild(div);
+            }
+        }
+        socket.on('message', (message, email, imgs) => {
+            outPut(message, email, imgs);
+            //chatMessage.scrollTop=chatMessage.scrollHeight;
+        })
+        let username = `<%= user.Firstname %>`
+        let email = `<%= user.email %>`
+        let lastname = `<%= user.Lastname %>`
+        let role = `<%= user.role %>`
+        let img = "/profilPicture/<%= user.img %>";
+        console.log(img)
+        if (role == "admin") {
+            lastname = lastname.concat("⭐")
+            console.log(lastname)
+        }
+        //let room=location.pathname.split("")[14]
+        let room = location.pathname.slice(14).replace(20, "").replace("%", "").replace("-", "")
+        console.log(room)
+        socket.emit("joined", {
+            username,
+            lastname,
+            email,
+            room,
+            img
+        });
+        socket.on("afficherMsg", (result) => {
+            result.forEach(element => {
+                if (element.email == email) {
+                    //console.log("kifkif")
+                    const div = document.createElement("div");
+                    div.innerHTML = `
       <div class='flex w-full mt-4 justify-end'>
       <div
               class="message-content bg-blue-400 text-white mx-2 w-5/6 rounded-lg p-2"
@@ -168,11 +163,11 @@ socket.on("afficherMsg",(result)=>{
               />
             </div>
           </div>`
-            document.querySelector(".messages").appendChild(div);
-    }
-      if(element.email!=email){
-        const div=document.createElement("div");
-      div.innerHTML=`
+                    document.querySelector(".messages").appendChild(div);
+                }
+                if (element.email != email) {
+                    const div = document.createElement("div");
+                    div.innerHTML = `
       <div class="flex w-full mt-4">
       <div
               class="h-12 w-12 rounded-full border border-blue-400 overflow-hidden"
@@ -186,23 +181,24 @@ socket.on("afficherMsg",(result)=>{
               ${element.message}
             </div>
           </div>`
-      document.querySelector(".messages").appendChild(div);
-      }
-      
-    
-  })
-})
-let button=document.getElementById("envoie");
-button.addEventListener("click",function(e){
-  e.preventDefault();
-  let message=document.getElementById("message-sent").value;
-  let ins=document.getElementById("message-sent");
-  console.log(message)
-  socket.emit('onMessage',message,username,email,lastname,role,room,img);
-   //clear the input
-    ins.value='';
-   
-})
-</script>
-    </body>
-  </html>
+                    document.querySelector(".messages").appendChild(div);
+                }
+
+
+            })
+        })
+        let button = document.getElementById("envoie");
+        button.addEventListener("click", function(e) {
+            e.preventDefault();
+            let message = document.getElementById("message-sent").value;
+            let ins = document.getElementById("message-sent");
+            console.log(message)
+            socket.emit('onMessage', message, username, email, lastname, role, room, img);
+            //clear the input
+            ins.value = '';
+
+        })
+    </script>
+</body>
+
+</html>
